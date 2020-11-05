@@ -4,6 +4,7 @@ import RightMenu from './Sections/RightMenu';
 import { Drawer, Button } from 'antd';
 import { AlignRightOutlined } from "@ant-design/icons";
 import './Sections/Navbar.css';
+import Logo from './logo.png'
 
 function NavBar() {
   const [visible, setVisible] = useState(false)
@@ -22,7 +23,9 @@ function NavBar() {
       style={{ position: "fixed", zIndex: 5, width: "100%" }}
     >
       <div className="menu__logo">
-        <a href="/">Logo</a>
+        <a href="/">
+          <img src={Logo}/>
+        </a>
       </div>
       <div className="menu__container">
         <div className="menu_left">

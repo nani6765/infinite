@@ -1,38 +1,78 @@
 import React, {useEffect, useState} from 'react'
 import { FaCode } from "react-icons/fa";
 import axios from 'axios';
-import {Button, Col, Card, Row, Carousel} from 'antd';
+import {Button, Col, Card, Row, Carousel, Collapse} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
-import ImageSlider from '../../Utils/ImageSlider'
+import ImageSlider from '../../Utils/ImageSlider';
 
+import AreaBox from './Section/AreaBox';
+import AreaBoxHardCording from './Section/AreaBoxHardCording'
+
+import { areaContinents } from './Section/Datas';
 //import { response } from 'express';
+
+const { Panel } = Collapse;
 
 function LandingPage() {
 
     const [Products, setProducts] = useState([])
+    const [Skip, setSkip] = useState(0)
+    const [Limit, setLimit] = useState(8)
+    const [PostSize, setPostSize] = useState(0)
 
     useEffect(() => {
-        axios.post('api/product/products').
-            then(response => {
-                if(response.data.success){
-                    console.log(response.data)
-                    setProducts(response.data.productInfo)
-                }else{
-                   alert("에러처리는 귀찮아.")
-                }
-            })
+
+        let body = {
+            skip : Skip,
+            limit : Limit
+        }
+        getProducts(body)
     }, [])
+
+    const getProducts = (body) => {
+        axios.post('api/product/products', body).
+        then(response => {
+            if(response.data.success){
+                if(body.loadMore){
+                    setProducts([...Products, ...response.data.productInfo])
+                    //console.log(response.data)
+                } else {
+                    setProducts(response.data.productInfo.slice(0, 8));
+                }
+                setPostSize(response.data.postSize)  
+            } else {
+               alert("에러처리는 귀찮아.")
+            }
+        })
+    }
+
+    const loadMoreHandler = () => {
+        
+        let skip = Skip + Limit
+
+        let body = {
+            skip : Skip,
+            limit : Limit,
+            loadMore : true
+        }
+
+        setSkip(skip)
+        console.log(skip)
+        getProducts(body)
+    }
 
     const renderCards = Products.map((product, index) => {
         //console.log('product', product)
 
         return <Col lg={6} md={8} xs={24} key={index}>
-            <Card cover={<ImageSlider images={product.images}/>}>
-                <Card.Meta
-                    title={product.title}
-                    description={product.description}
-                />
-            </Card>
+            <div style={{marginBottom:"32px"}}>
+                <Card cover={<ImageSlider images={product.images}/>}>
+                    <Card.Meta
+                        title={product.title}
+                        description={product.description}
+                    />
+                </Card>
+            </div>
         </Col>
     })
 
@@ -43,16 +83,25 @@ function LandingPage() {
             </div>
 
             {/* Filter */}
+            {/* Area */}
+            <AreaBoxHardCording />
+            {/* AreaBox list = { areaContinents } */}
+            
+            {/* State */}
+            
             {/* Serach */}
             {/* Card */}
 
-            <Row gutter={16, 16}>
+            <Row gutter={16}>
                 {renderCards}
             </Row>
             
-            <div style={{ display:'flex', justifyContent: 'center'}}>
-                <Button>더보기</Button>
-            </div>
+            {PostSize >= Limit &&
+                <div style={{ textAlign: 'center', justifyContent: 'center'}}>
+                    <Button type="primary" onClick={loadMoreHandler}>더보기</Button>
+                </div>
+            }
+
         </div>
     )
 }
