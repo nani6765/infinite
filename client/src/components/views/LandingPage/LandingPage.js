@@ -4,11 +4,9 @@ import axios from 'axios';
 import {Button, Col, Card, Row, Carousel, Collapse} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import ImageSlider from '../../Utils/ImageSlider';
-
+import { areaCont, stateCont } from './Section/Datas';
 import AreaBox from './Section/AreaBox';
-import AreaBoxHardCording from './Section/AreaBoxHardCording'
-
-import { areaContinents } from './Section/Datas';
+import StateBox from './Section/StateBox';
 //import { response } from 'express';
 
 const { Panel } = Collapse;
@@ -19,6 +17,10 @@ function LandingPage() {
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
+    const [Filters, setFilters] = useState({
+        areaCon: [], 
+        stateCon: []
+    })
 
     useEffect(() => {
 
@@ -57,24 +59,62 @@ function LandingPage() {
         }
 
         setSkip(skip)
-        console.log(skip)
+        //console.log(skip)
         getProducts(body)
     }
 
+
     const renderCards = Products.map((product, index) => {
         //console.log('product', product)
-
         return <Col lg={6} md={8} xs={24} key={index}>
             <div style={{marginBottom:"32px"}}>
+                        {console.log("area", product.areaCon)}
+                        {console.log("state", product.stateCon)}
                 <Card cover={<ImageSlider images={product.images}/>}>
                     <Card.Meta
                         title={product.title}
-                        description={product.description}
+                        description = {areaCont[product.areaCon-1].name + " | " + stateCont[product.stateCon-1].name} 
+                        style={{marginBottom:'5px'}}
                     />
                 </Card>
             </div>
         </Col>
     })
+
+    const showFilterResults = (filters) => {
+        let body = {
+            skip : 0,
+            limit : Limit,
+            filters : filters
+        }
+        getProducts(body)
+        setSkip(0)
+    }
+
+    const hanldeStateCon = (value) => {
+        const data = stateCont;
+
+        let array = [];
+        for (let key in data){
+            if(data[key]._id === parseInt(value, 10)){
+                array = data[key].array;
+            }
+        }
+        console.log(array)
+        return array;
+    }
+
+    const handleFilters = (filters, category) => {
+        const newFilters = {...Filters}
+        newFilters[category] = filters
+
+        if(category === "stateCon"){
+            let stateConValues = hanldeStateCon(filters)
+            newFilters[category] = stateConValues
+        }
+        showFilterResults(newFilters)
+        
+    }
 
     return (
         <div style={{width:'75%', margin: '3rem auto'}}>
@@ -83,15 +123,20 @@ function LandingPage() {
             </div>
 
             {/* Filter */}
-            {/* Area */}
-            <AreaBoxHardCording />
-            {/* AreaBox list = { areaContinents } */}
-            
-            {/* State */}
+            <Row gutter={[16, 16]}>
+                <Col lg={12} xs={24}>
+                    {/* Area */}
+                    <AreaBox list={areaCont} handleFilters={filters => handleFilters(filters, "areaCon")}/>
+                </Col>
+                <Col lg={12} xs={24}>
+                    {/* State */}
+                    <StateBox list={stateCont} handleFilters={filters => handleFilters(filters, "stateCon")}/>
+                </Col>
+            </Row>
             
             {/* Serach */}
-            {/* Card */}
 
+            {/* Card */}
             <Row gutter={16}>
                 {renderCards}
             </Row>

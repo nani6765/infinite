@@ -1,4 +1,4 @@
-const areaContinents = [
+const areaCont = [
     { 
         "_id":1 ,
         "name":"서울" 
@@ -40,15 +40,31 @@ const areaContinents = [
         "name":"기타" 
     },
 ]
-/*
-const stateContinents = [
-    {"_id":1, "name":"초,종학생" },
-    {"_id":2, "name":"고등학생" },
-    {"_id":3, "name":"대학생" },
-    {"_id":4, "name":"성인" },
+
+const stateCont = [
+    {
+        "_id":1, 
+        "name":"초,중학생",
+        "array": [1]
+    },
+    {
+        "_id":2, 
+        "name":"고등학생" ,
+        "array": [2]
+    },
+    {
+        "_id":3, 
+        "name":"대학생" ,
+        "array": [3]
+    },
+    {
+        "_id":4, 
+        "name":"성인" ,
+        "array": [4]
+    },
 ]
-*/
+
 
 export {
-    areaContinents
+    areaCont, stateCont
 }

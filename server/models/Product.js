@@ -22,11 +22,14 @@ const productSchema = mongoose.Schema({
         default: 0
     },
     areaCon: {
-        type: String
+        type: Number,
+        default: 1
     },
     stateCon: {
-        type: String
+        type: Number,
+        default: 1
     },
+    
 },{timestamps:true})
 
 const Product = mongoose.model('Product', productSchema);

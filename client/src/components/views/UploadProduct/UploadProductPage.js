@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import {Typography, Button, Form, Input, Select } from 'antd';
+import {Typography, Button, Form, Input} from 'antd';
 import FileUpload from '../../Utils/FileUpload.js'
 import Axios from 'axios';
 //import { response } from 'express';
 
 const { Title } = Typography;
 const { TextArea } = Input;
-const { Option } = Select;
 
 const areaContinents = [
     {key:1, value:"서울" },
@@ -22,7 +21,7 @@ const areaContinents = [
 ]
 
 const stateContinents = [
-    {key:1, value:"초,종학생" },
+    {key:1, value:"초,중학생" },
     {key:2, value:"고등학생" },
     {key:3, value:"대학생" },
     {key:4, value:"성인" },
@@ -45,15 +44,15 @@ function UploadProductPage(props) {
     }
 
     const areaContinentChangeHandler = (event) => {
-        var target = areaContinents[`${event}` -1] 
-        setAreaContinent(target.value)
-        //setAreaContinent(event.currentTarget.value)
+        //var target = areaContinents[`${event}`] 
+        //setAreaContinent(target.key)
+        setAreaContinent(event.currentTarget.value)
     }
 
     const stateContinentChangeHandler = (event) => {
-        var target = stateContinents[`${event}` -1] 
-        setStateContinent(target.value)
-        //setAreaContinent(event.currentTarget.value)
+        //var target = stateContinents[`${event}`] 
+        //setStateContinent(target.key)
+        setStateContinent(event.currentTarget.value)
     }
     
 
@@ -66,7 +65,9 @@ function UploadProductPage(props) {
         if(!PostTitle || !Description || !AreaContinent || !StateContinent || !Images){
             return alert("이거 다 경우의 수 처리하기 귀찮으니까 알아서 안 넣은 항목 찾아보셈")
         }
-
+        else{
+            console.log("Check")
+        }
         //server value request
 
         const body = {
@@ -75,8 +76,8 @@ function UploadProductPage(props) {
             title: PostTitle,
             description: Description,
             images: Images,
-            areaCon : AreaContinent,
-            stateCon : StateContinent
+            areaCon : parseInt(AreaContinent),
+            stateCon : parseInt(StateContinent)
         }
 
         Axios.post("/api/product", body)
@@ -103,7 +104,7 @@ function UploadProductPage(props) {
                 {/*Drop Zone*/}
                 <br />
                 <br />
-                <lavel> 이름 </lavel>
+                <lavel> 제목 </lavel>
                 <Input onChange={titleChangeHandler} value={PostTitle}/>
                 <br />
                 <br />
@@ -113,22 +114,20 @@ function UploadProductPage(props) {
                 <br />
                 <lavel> 지역 </lavel>
                 <br />
-                <Select onChange={areaContinentChangeHandler} value={AreaContinent}>
+                <select onChange={areaContinentChangeHandler} value={AreaContinent}>
                     {areaContinents.map(item => (
-                        <Option key={item.value} value={item.key}>{item.value}</Option>
+                        <option key={item.key} value={item.key}> {item.value}</option>
                     ))}
-                </Select>
-                
+                </select>
                 <br />
                 <br />
                 <lavel> 상태(?) </lavel>
                 <br />
-
-                <Select onChange={stateContinentChangeHandler} value={StateContinent}>
+                <select onChange={stateContinentChangeHandler} value={StateContinent}>
                     {stateContinents.map(item => (
-                        <Option key={item.key} value={item.key}>{item.value}</Option>
+                        <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
-                </Select>
+                </select>
 
                 <br />
                 <br />
