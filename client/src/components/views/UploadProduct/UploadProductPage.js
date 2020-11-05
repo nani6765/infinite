@@ -6,18 +6,19 @@ import Axios from 'axios';
 
 const { Title } = Typography;
 const { TextArea } = Input;
+const { Option } = Select;
 
 const areaContinents = [
-    {key:1, value:"a" },
-    {key:2, value:"b" },
-    {key:3, value:"c" },
-    {key:4, value:"d" },
-    {key:5, value:"e" },
-    {key:6, value:"f" },
-    {key:7, value:"g" },
-    {key:8, value:"h" },
-    {key:9, value:"j" },
-    {key:10, value:"k" },
+    {key:1, value:"서울" },
+    {key:2, value:"경기" },
+    {key:3, value:"경북" },
+    {key:4, value:"경남" },
+    {key:5, value:"전북" },
+    {key:6, value:"전남" },
+    {key:7, value:"충남" },
+    {key:8, value:"충북" },
+    {key:9, value:"강원" },
+    {key:10, value:"기타" },
 ]
 
 const stateContinents = [
@@ -44,19 +45,24 @@ function UploadProductPage(props) {
     }
 
     const areaContinentChangeHandler = (event) => {
-        setAreaContinent(event.currentTarget.value)
+        var target = areaContinents[`${event}` -1] 
+        setAreaContinent(target.value)
+        //setAreaContinent(event.currentTarget.value)
     }
 
     const stateContinentChangeHandler = (event) => {
-        setStateContinent(event.currentTarget.value)
+        var target = stateContinents[`${event}` -1] 
+        setStateContinent(target.value)
+        //setAreaContinent(event.currentTarget.value)
     }
     
+
     const updateImages = (newImages) => {
         setImages(newImages)
     }
 
     const submitHandler = (event) => {
-        event.preventDefault();
+        //event.preventDefault();
         if(!PostTitle || !Description || !AreaContinent || !StateContinent || !Images){
             return alert("이거 다 경우의 수 처리하기 귀찮으니까 알아서 안 넣은 항목 찾아보셈")
         }
@@ -72,6 +78,7 @@ function UploadProductPage(props) {
             areaCon : AreaContinent,
             stateCon : StateContinent
         }
+
         Axios.post("/api/product", body)
             .then(response => {
                 if(response.data.success){
@@ -92,7 +99,7 @@ function UploadProductPage(props) {
 
             <FileUpload refreshFunction={updateImages}/>
 
-            <Form onSubmit={submitHandler}>
+            <Form onFinish={submitHandler}>
                 {/*Drop Zone*/}
                 <br />
                 <br />
@@ -108,22 +115,24 @@ function UploadProductPage(props) {
                 <br />
                 <Select onChange={areaContinentChangeHandler} value={AreaContinent}>
                     {areaContinents.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
-                    ))}
-                </Select>
-                <br />
-                <br />
-                <lavel> 상태(?) </lavel>
-                <br />
-                <Select onChange={stateContinentChangeHandler} value={StateContinent}>
-                    {stateContinents.map(item => (
-                        <option key={item.key} value={item.key}>{item.value}</option>
+                        <Option key={item.value} value={item.key}>{item.value}</Option>
                     ))}
                 </Select>
                 
                 <br />
                 <br />
-                <Button type="submit"> 제출 </Button>
+                <lavel> 상태(?) </lavel>
+                <br />
+
+                <Select onChange={stateContinentChangeHandler} value={StateContinent}>
+                    {stateContinents.map(item => (
+                        <Option key={item.key} value={item.key}>{item.value}</Option>
+                    ))}
+                </Select>
+
+                <br />
+                <br />
+                <Button htmlType="submit"> 제출 </Button>
             </Form>
         </div>
     )

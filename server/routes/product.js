@@ -34,9 +34,25 @@ router.post('/', (req, res) => {
     const product = new Product(req.body)
 
     product.save((err) => {
-        if (err) return res.status(400).json({success: false, err})
-        return res.status(200).json({success: true})
+        if (err) {
+            return res.status(400).json({success: false, err})
+        } else {
+            return res.status(200).json({success: true})
+        }
     })
 })
+
+router.post('/products', (req, res) => {
+    Product.find()
+    .populate("writer")
+    .exec((err, productInfo) => {
+        if (err) {
+            return res.status(400).json({success: false, err})
+        } else {
+            return res.status(200).json({success: true, productInfo})
+        }
+    })
+})
+
 
 module.exports = router;

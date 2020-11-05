@@ -13,16 +13,22 @@ const productSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    imgaes: {
+    images: {
         type: Array,
         default: []
     },
     views: {
         type: Number,
         default: 0
-    }
+    },
+    areaCon: {
+        type: String
+    },
+    stateCon: {
+        type: String
+    },
 },{timestamps:true})
 
 const Product = mongoose.model('Product', productSchema);
 
-module.exports = { Product }
+module.exports = { Product }    
