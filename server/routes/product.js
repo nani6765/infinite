@@ -6,6 +6,7 @@ const { Product } = require('../models/Product');
 //=================================
 //             Product
 //=================================
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         //파일 저장 위치
@@ -28,7 +29,7 @@ router.post('/image', (req, res) => {
         return res.json({success: true, filePath: res.req.file.path, fileName: res.req.file.filename})
     })
 })
-  
+
 router.post('/', (req, res) => {
     //db에 넣기
     const product = new Product(req.body)
@@ -52,14 +53,14 @@ router.post('/products', (req, res) => {
         console.log(req.body.filters[key].length)
 
         if(req.body.filters[key].length > 0){
+            findArgs[key] = req.body.filters[key];
+            /*
             if(key === "stateCon"){
-                //$gte: req.body.filters[key][0]
-                //$lte: req.body.filters[key][1]
                 findArgs[key] = req.body.filters[key];
             } else {
                 findArgs[key] = req.body.filters[key];
             }
-            
+            */
         }
     }
 
@@ -68,6 +69,7 @@ router.post('/products', (req, res) => {
         .skip(skip)
         .limit(limit)
         .exec((err, productInfo) => {
+            console.log("skip", skip)
             if (err) {
                 return res.status(400).json({success: false, err})
             } else {
@@ -79,5 +81,11 @@ router.post('/products', (req, res) => {
         })
 })
 
+/*
+
+router.get(`${product.id}`){
+
+}
+*/
 
 module.exports = router;

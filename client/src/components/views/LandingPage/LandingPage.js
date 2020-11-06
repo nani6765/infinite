@@ -53,30 +53,30 @@ function LandingPage() {
         let skip = Skip + Limit
 
         let body = {
-            skip : Skip,
+            skip : skip,
             limit : Limit,
             loadMore : true
         }
 
         setSkip(skip)
-        //console.log(skip)
+        console.log("skip", skip)
         getProducts(body)
     }
 
-
     const renderCards = Products.map((product, index) => {
         //console.log('product', product)
+        let path = "/productdetail/"+`${product._id}`
         return <Col lg={6} md={8} xs={24} key={index}>
             <div style={{marginBottom:"32px"}}>
-                        {console.log("area", product.areaCon)}
-                        {console.log("state", product.stateCon)}
-                <Card cover={<ImageSlider images={product.images}/>}>
+                <a href={path}>
+                    <Card cover={<ImageSlider images={product.images}/>}>
                     <Card.Meta
                         title={product.title}
                         description = {areaCont[product.areaCon-1].name + " | " + stateCont[product.stateCon-1].name} 
                         style={{marginBottom:'5px'}}
                     />
-                </Card>
+                    </Card>
+                </a>
             </div>
         </Col>
     })
@@ -100,7 +100,7 @@ function LandingPage() {
                 array = data[key].array;
             }
         }
-        console.log(array)
+        //console.log(array)
         return array;
     }
 
@@ -111,9 +111,9 @@ function LandingPage() {
         if(category === "stateCon"){
             let stateConValues = hanldeStateCon(filters)
             newFilters[category] = stateConValues
-        }
+        } 
+
         showFilterResults(newFilters)
-        
     }
 
     return (
@@ -138,7 +138,9 @@ function LandingPage() {
 
             {/* Card */}
             <Row gutter={16}>
-                {renderCards}
+                
+                    {renderCards}
+                
             </Row>
             
             {PostSize >= Limit &&
