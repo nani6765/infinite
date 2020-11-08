@@ -32,6 +32,19 @@ const productSchema = mongoose.Schema({
     
 },{timestamps:true})
 
+//검색설정
+productSchema.index({
+    title: 'text',
+    description: 'text',
+    writer: 'Schema.Types.ObjectId'
+}, {
+    weights: {
+        title: 5,
+        description: 5,
+        writer: 5,
+    }
+})
+
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = { Product }    

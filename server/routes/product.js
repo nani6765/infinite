@@ -46,30 +46,26 @@ router.post('/', (req, res) => {
 router.post('/products', (req, res) => {
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+    let term = req.body.searchTerm
+    
     let findArgs = {};
     
     for(let key in req.body.filters){
-       
-        console.log(req.body.filters[key].length)
-
+    //console.log(req.body.filters[key].length)
         if(req.body.filters[key].length > 0){
             findArgs[key] = req.body.filters[key];
-            /*
-            if(key === "stateCon"){
-                findArgs[key] = req.body.filters[key];
-            } else {
-                findArgs[key] = req.body.filters[key];
-            }
-            */
         }
     }
-
-    Product.find(findArgs)
+    
+    if(term){
+        Product.find(findArgs)
+        .find({ "title": { '$regex': term }})
+        //.find({ $text: { $search: term }})
         .populate("writer")
         .skip(skip)
         .limit(limit)
         .exec((err, productInfo) => {
-            console.log("skip", skip)
+            //console.log("skip", skip)
             if (err) {
                 return res.status(400).json({success: false, err})
             } else {
@@ -79,13 +75,47 @@ router.post('/products', (req, res) => {
                 })
             }
         })
+    } else {
+        Product.find(findArgs)
+        .populate("writer")
+        .skip(skip)
+        .limit(limit)
+        .exec((err, productInfo) => {
+            //console.log("skip", skip)
+            if (err) {
+                return res.status(400).json({success: false, err})
+            } else {
+                return res.status(200).json({
+                    success: true, productInfo,
+                    postSize: productInfo.length
+                })
+            }
+        })
+    }
+
+    router.get('/products_by_id', (req, res) => {
+
+        let type = req.query.type
+        let productId = req.query.id
+        console.log("productId", productId)
+        
+        if (type === "array") {
+            let ids = req.query.id.split(',')
+            productId = ids.map(item => {
+                return item
+            })
+    
+        }
+    
+        Product.find({ _id: { $in: productId } })
+            .populate('writer')
+            .exec((err, product) => {
+                console.log(product)
+                if (err) return res.status(400).send(err)
+                return res.status(200).send(product)
+            })
+        })
+
 })
-
-/*
-
-router.get(`${product.id}`){
-
-}
-*/
 
 module.exports = router;

@@ -7,6 +7,7 @@ import ImageSlider from '../../Utils/ImageSlider';
 import { areaCont, stateCont } from './Section/Datas';
 import AreaBox from './Section/AreaBox';
 import StateBox from './Section/StateBox';
+import SearchFeatures from './Section/SearchFeatures'
 //import { response } from 'express';
 
 const { Panel } = Collapse;
@@ -21,6 +22,7 @@ function LandingPage() {
         areaCon: [], 
         stateCon: []
     })
+    const [SearchTerm, setSearchTerm] = useState("")
 
     useEffect(() => {
 
@@ -64,20 +66,20 @@ function LandingPage() {
     }
 
     const renderCards = Products.map((product, index) => {
-        //console.log('product', product)
-        let path = "/productdetail/"+`${product._id}`
+
         return <Col lg={6} md={8} xs={24} key={index}>
             <div style={{marginBottom:"32px"}}>
-                <a href={path}>
-                    <Card cover={<ImageSlider images={product.images}/>}>
+                <Card
+                    cover={<a href={`/product/${product._id}`} >
+                    <ImageSlider images={product.images} /></a>}
+                >
                     <Card.Meta
                         title={product.title}
                         description = {areaCont[product.areaCon-1].name + " | " + stateCont[product.stateCon-1].name} 
                         style={{marginBottom:'5px'}}
-                    />
-                    </Card>
-                </a>
-            </div>
+                />
+                </Card>
+                </div>
         </Col>
     })
 
@@ -114,6 +116,20 @@ function LandingPage() {
         } 
 
         showFilterResults(newFilters)
+        setFilters(newFilters)
+    }
+
+    const UpdateSearchTerm = (newSearchTerm) => {
+        let body = {
+            skip: 0,
+            limit: Limit,
+            filters: Filters,
+            searchTerm: newSearchTerm
+        }
+
+        setSkip(0)
+        setSearchTerm(newSearchTerm)
+        getProducts(body)
     }
 
     return (
@@ -135,6 +151,11 @@ function LandingPage() {
             </Row>
             
             {/* Serach */}
+            <div style={{display:'flex', justifyContent:'flex-end', margin: '1rem auto'}}>
+                <SearchFeatures
+                    refreshFunction={UpdateSearchTerm}
+                />
+            </div>
 
             {/* Card */}
             <Row gutter={16}>
