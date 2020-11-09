@@ -8,9 +8,7 @@ import { areaCont, stateCont } from './Section/Datas';
 import AreaBox from './Section/AreaBox';
 import StateBox from './Section/StateBox';
 import SearchFeatures from './Section/SearchFeatures'
-//import { response } from 'express';
-
-const { Panel } = Collapse;
+import ChatBot from './Section/Chatbot'
 
 function LandingPage() {
 
@@ -79,6 +77,8 @@ function LandingPage() {
                         style={{marginBottom:'5px'}}
                 />
                 </Card>
+
+                
                 </div>
         </Col>
     })
@@ -169,7 +169,9 @@ function LandingPage() {
                     <Button type="primary" onClick={loadMoreHandler}>더보기</Button>
                 </div>
             }
-
+            
+        {/* Chatbot */}
+        {/* <ChatBot/> */}
         </div>
     )
 }
