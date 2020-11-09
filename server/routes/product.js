@@ -115,7 +115,6 @@ router.post('/products', (req, res) => {
                 return res.status(200).send(product)
             })
         })
-
 })
 
 module.exports = router;

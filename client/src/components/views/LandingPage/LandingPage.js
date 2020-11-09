@@ -8,10 +8,9 @@ import { areaCont, stateCont } from './Section/Datas';
 import AreaBox from './Section/AreaBox';
 import StateBox from './Section/StateBox';
 import SearchFeatures from './Section/SearchFeatures'
-import ChatBot from './Section/Chatbot'
+import ChannelService from './Section/ChannelService'
 
 function LandingPage() {
-
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
@@ -30,6 +29,13 @@ function LandingPage() {
         }
         getProducts(body)
     }, [])
+
+    // Boot Channel as an anonymous user
+    ChannelService.boot({
+        "pluginKey": "93635d68-761c-4d5a-8cde-d63b06cf017c" 
+    });
+    // Shutdown Channel
+    ChannelService.shutdown();
 
     const getProducts = (body) => {
         axios.post('api/product/products', body).
@@ -171,7 +177,7 @@ function LandingPage() {
             }
             
         {/* Chatbot */}
-        {/* <ChatBot/> */}
+ 
         </div>
     )
 }
