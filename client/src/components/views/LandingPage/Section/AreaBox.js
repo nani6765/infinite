@@ -3,6 +3,8 @@ import { Collapse, Checkbox } from 'antd';
 
 const { Panel } = Collapse;
 
+//지역 필터
+//작동 방식은 array방식으로. 두번클릭했을 땐 해제되는 방식
 function AreaBox(props) {
 
     const [Checked, setChecked] = useState([])
@@ -20,6 +22,7 @@ function AreaBox(props) {
         props.handleFilters(newChecked)
     }
 
+    //map으로 index for문 도는건 따로 공부하세요  ^^
     const renderCheckboxList = () => props.list && props.list.map((value, index) => (
         <React.Fragment key={index}>
             <Checkbox onChange={() => handdleToggle(value._id)} checked={Checked.indexOf(value._id) === -1 ? false : true}/>

@@ -1,3 +1,5 @@
+//front에 있는 정보들이지만.. db에서 바로 쓸려고 저장
+
 const areaCont = [
     { 
         "_id":1 ,

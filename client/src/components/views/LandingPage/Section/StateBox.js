@@ -7,6 +7,7 @@ function StateBox(props) {
 
     const [Value, setValue] = useState(0)
 
+    //나이는 중복될 리가 없으니 radio형태로 필터
     const renderRadioBox = () => (
         props.list && props.list.map(value => (
             <Radio key={value._id} value={value._id}>{value.name}</Radio>

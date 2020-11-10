@@ -43,7 +43,9 @@ router.post('/', (req, res) => {
     })
 })
 
+//메인페이지에 프로덕트 뿌려주는 곳이 이곳
 router.post('/products', (req, res) => {
+    //limit이랑 skip을 20과 0으로 초기화하긴 하는데 어차피 프론트에서 넘겨줘서 숫자는 의미없음
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;
     let skip = req.body.skip ? parseInt(req.body.skip) : 0;
     let term = req.body.searchTerm

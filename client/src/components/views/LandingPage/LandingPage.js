@@ -21,6 +21,7 @@ function LandingPage() {
     })
     const [SearchTerm, setSearchTerm] = useState("")
 
+    //초기에 최근 8개의 게시글만 보여줌. skip에 8 저장되어 있음
     useEffect(() => {
 
         let body = {
@@ -30,13 +31,14 @@ function LandingPage() {
         getProducts(body)
     }, [])
 
-    // Boot Channel as an anonymous user
+    //채널 톡 고유키, 로그인 하지 않아도 이용할 수 있도록 설정
     ChannelService.boot({
         "pluginKey": "93635d68-761c-4d5a-8cde-d63b06cf017c" 
     });
-    // Shutdown Channel
+    // 채널톡 닫음
     ChannelService.shutdown();
 
+    // 프로덕트 정보 불러오기. slice(0, 8)은 당연히 skip이랑 연계되겠죠?
     const getProducts = (body) => {
         axios.post('api/product/products', body).
         then(response => {
@@ -54,6 +56,7 @@ function LandingPage() {
         })
     }
 
+    //더보기 버튼을 클릭했을 때, skip은 8부터 다음 8개의 게시글을 가져옴
     const loadMoreHandler = () => {
         
         let skip = Skip + Limit
@@ -70,13 +73,14 @@ function LandingPage() {
     }
 
     const renderCards = Products.map((product, index) => {
-
         return <Col lg={6} md={8} xs={24} key={index}>
             <div style={{marginBottom:"32px"}}>
+                {/*카드를 가져오면서 cover에 product로 갈 수 있도록 링크*/}
                 <Card
                     cover={<a href={`/product/${product._id}`} >
                     <ImageSlider images={product.images} /></a>}
                 >
+                    {/*현재는 디버그 때문에 description 필터 임의지정, 나중에 수정하면 됨*/}
                     <Card.Meta
                         title={product.title}
                         description = {areaCont[product.areaCon-1].name + " | " + stateCont[product.stateCon-1].name} 
@@ -89,6 +93,7 @@ function LandingPage() {
         </Col>
     })
 
+    //필터 정보를 db에 넣어서 선택해서 게시글을 끌고올 수 있도록 수정
     const showFilterResults = (filters) => {
         let body = {
             skip : 0,
@@ -99,6 +104,7 @@ function LandingPage() {
         setSkip(0)
     }
 
+    //지역 필터
     const hanldeStateCon = (value) => {
         const data = stateCont;
 
@@ -112,6 +118,7 @@ function LandingPage() {
         return array;
     }
 
+    //나이 필터
     const handleFilters = (filters, category) => {
         const newFilters = {...Filters}
         newFilters[category] = filters
@@ -125,6 +132,7 @@ function LandingPage() {
         setFilters(newFilters)
     }
 
+    //검색 필터
     const UpdateSearchTerm = (newSearchTerm) => {
         let body = {
             skip: 0,

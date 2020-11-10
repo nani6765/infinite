@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const moment = require("moment");
+const { text } = require('body-parser');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -29,9 +30,53 @@ const userSchema = mongoose.Schema({
     },
     
     image: String,
+
+    //관심분야
+    interested: {
+        type:Array,
+    },
+    
+    //지원계열
+    line: {
+        type:String,
+        minglength: 1
+    },
+
+    //대학명
+    school: {
+        type:String,
+        minglength: 1
+    },
+    
+    //학적정보
+    academic: {
+        type:String,
+        minglength: 1
+    },
+
+    //성적정보
+    achievement: {
+        type:Number,
+        default: 0,
+        step: "0.01"
+    },
+    
+    //소득분위
+    income: {
+        type:Number,
+        default: 0 
+    },
+
+    //특수정보
+    info: {
+        type:String,
+        minglength: 1
+    },
+
     token : {
         type: String,
     },
+
     tokenExp :{
         type: Number
     }

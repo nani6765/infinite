@@ -8,6 +8,7 @@ const { auth } = require("../middleware/auth");
 //             User
 //=================================
 
+//회원가입할 때 받는 정보들 json 데이터로 저장
 router.get("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id,
@@ -18,9 +19,18 @@ router.get("/auth", auth, (req, res) => {
         lastname: req.user.lastname,
         role: req.user.role,
         image: req.user.image,
+        //추가정보
+        interested: req.user.interested,
+        line: req.user.line,
+        school: req.user.school,
+        academic: req.user.academic,
+        achievement: req.user.achievement,
+        income: req.user.income,
+        info: req.user.info
     });
 });
 
+//회원 정보 세이브
 router.post("/register", (req, res) => {
 
     const user = new User(req.body);
@@ -33,6 +43,7 @@ router.post("/register", (req, res) => {
     });
 });
 
+//로그인 과정, 아이디랑 비밀번호만
 router.post("/login", (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user)

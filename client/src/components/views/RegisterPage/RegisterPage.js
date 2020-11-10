@@ -1,38 +1,16 @@
-import React from "react";
+import React from 'react';
+import { Formik, Field, Form } from 'formik';
 import moment from "moment";
-import { Formik } from 'formik';
+import { useDispatch } from "react-redux";
 import * as Yup from 'yup';
 import { registerUser } from "../../../_actions/user_actions";
-import { useDispatch } from "react-redux";
 
+//antd 안씁니다~~ 
 import {
-  Form,
   Input,
   Button,
+  Select,
 } from 'antd';
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
@@ -44,12 +22,20 @@ function RegisterPage(props) {
         lastName: '',
         name: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        interested: [],
+        line: '',
+        school: '',
+        academic: '',
+        achievement: '',
+        income: '',
+        info: '',
       }}
+
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required('Name is required'),
-        lastName: Yup.string()
+        lastname: Yup.string()
           .required('Last Name is required'),
         email: Yup.string()
           .email('Email is invalid')
@@ -57,19 +43,24 @@ function RegisterPage(props) {
         password: Yup.string()
           .min(6, 'Password must be at least 6 characters')
           .required('Password is required'),
-        confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password'), null], 'Passwords must match')
-          .required('Confirm Password is required')
       })}
+
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
 
           let dataToSubmit = {
-            email: values.email,
-            password: values.password,
             name: values.name,
             lastname: values.lastname,
-            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
+            email: values.email,
+            password: values.password,
+            interested: values.interested,
+            line: values.line,
+            school: values.school,
+            academic: values.academic,
+            achievement: values.achievement,
+            income: values.income,
+            info: values.info,
+            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`,
           };
 
           dispatch(registerUser(dataToSubmit)).then(response => {
@@ -81,123 +72,213 @@ function RegisterPage(props) {
           })
 
           setSubmitting(false);
-        }, 500);
+        }, 400);
       }}
     >
-      {props => {
-        const {
-          values,
-          touched,
-          errors,
-          dirty,
-          isSubmitting,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          handleReset,
-        } = props;
-        return (
-          <div className="app">
-            <h2>Sign up</h2>
-            <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
 
-              <Form.Item required label="Name">
-                <Input
-                  id="name"
-                  placeholder="Enter your name"
-                  type="text"
-                  value={values.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.name && touched.name ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.name && touched.name && (
-                  <div className="input-feedback">{errors.name}</div>
-                )}
-              </Form.Item>
+    {props => {
+      const {
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        /* and other goodies */
+      } = props;
 
-              <Form.Item required label="Last Name">
-                <Input
-                  id="lastName"
-                  placeholder="Enter your Last Name"
-                  type="text"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.lastName && touched.lastName && (
-                  <div className="input-feedback">{errors.lastName}</div>
-                )}
-              </Form.Item>
+      return(
+        <div className="app">
+          <h2>Sign up</h2>
+          <Form style={{ minWidth: '375px' }} onSubmit={handleSubmit} >
+            <p>name</p>
+            <Field
+              name="name"
+              type="text"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+            />
+            {errors.name && touched.name}
 
-              <Form.Item required label="Email" hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
-                <Input
-                  id="email"
-                  placeholder="Enter your Email"
-                  type="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.email && touched.email ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.email && touched.email && (
-                  <div className="input-feedback">{errors.email}</div>
-                )}
-              </Form.Item>
+            <br/>
+            <p>lastname</p>
+            <Field
+              name="lastname"
+              type="text"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.lastname}
+            />
+            {errors.lastname && touched.lastname}
 
-              <Form.Item required label="Password" hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
-                <Input
-                  id="password"
-                  placeholder="Enter your password"
-                  type="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.password && touched.password ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.password && touched.password && (
-                  <div className="input-feedback">{errors.password}</div>
-                )}
-              </Form.Item>
+            <br/>
+            <p>email</p>
+            <Field
+              name="email"
+              type="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+            {errors.email && touched.email}
+            <br/>
 
-              <Form.Item required label="Confirm" hasFeedback>
-                <Input
-                  id="confirmPassword"
-                  placeholder="Enter your confirmPassword"
-                  type="password"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.confirmPassword && touched.confirmPassword ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.confirmPassword && touched.confirmPassword && (
-                  <div className="input-feedback">{errors.confirmPassword}</div>
-                )}
-              </Form.Item>
+            <p>패스워드</p>
+            <Field
+              name="password"
+              type="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+            {errors.password && touched.password}
+            <br/>
 
-              <Form.Item {...tailFormItemLayout}>
-                <Button onClick={handleSubmit} type="primary" disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-        );
-      }}
+            <p>패스워드 확인</p>
+            <Field
+              name="confirmPassword"
+              type="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.confirmPassword}
+            />
+            {errors.confirmPassword && touched.confirmPassword}
+            <br/>
+
+            <p>관심분야</p>
+            <label>
+             <input
+               type="checkbox"
+               name="interested"
+               value="장학금"
+               checked={values.interested.includes('장학금')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+             장학금
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="interested"
+               value="학자금"
+               checked={values.interested.includes('학자금')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+            학자금
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="interested"
+               value="기숙사/학사"
+               checked={values.interested.includes('기숙사/학사')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+             기숙사/학사
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="interested"
+               value="기타"
+               checked={values.interested.includes('기타')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+             기타
+           </label>
+            {errors.interested && touched.interested}
+
+            <br/>
+            <p>지원계열</p>
+            <Field
+              as="select"
+              name="line"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.line}
+            >
+              <option value="이공계">이공계</option>
+              <option value="인문계">인문계</option>
+              <option value="예체능">예체능</option>
+            </Field>
+            {errors.line && touched.line}
+
+            <br/>
+            <p>학교</p>
+            <Field
+              name="school"
+              type="text"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.school}
+            />
+            {errors.school && touched.school}
+
+            <br/>
+
+            <p>학적</p>
+            <Field
+              as="select"
+              id="academic"
+              name="academic"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.academic}
+            >
+              <option value="재학">재학</option>
+              <option value="휴학">휴학</option>
+              <option value="졸업">졸업</option>
+            </Field>
+            {errors.academic && touched.academic}
+
+            <br/>
+            <p>학점</p>
+            <Field
+              name="achievement"
+              type="number"
+              step="0.01"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.achievement}
+            />
+            {errors.achievement && touched.achievement}
+
+            <p>소득분위</p>
+            <Field
+              name="income"
+              type="number"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.income}
+            />만원
+            {errors.income && touched.income}
+
+            <p>특수정보</p>
+            <Field
+              name="info"
+              type="text"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.info}
+            />
+            {errors.info && touched.info}
+
+            
+            <br/>
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </Form>
+        </div>
+      );
+    }}
     </Formik>
   );
 };
-
-
-export default RegisterPage
+export default RegisterPage;
