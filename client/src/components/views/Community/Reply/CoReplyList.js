@@ -22,9 +22,9 @@ function CoReplyList(props) {
     }
 
     const renderReply = Replys.map((reply, index) => {
-        return <div style={{marginBottom:"16px"}}>
+        return <div style={{marginBottom:"16px", textAlign:"left"}}>
                     <Comment
-                        author={reply.writer.email}
+                        author={"작성자 : " + reply.writer.name}
                         content={reply.description}
                         datetime={reply.updateAt}
                     />
@@ -39,7 +39,7 @@ function CoReplyList(props) {
     }, [])
 
     return (
-        <div>
+        <div style={{textAlign:"left"}}>
             {renderReply}
         </div>
     )

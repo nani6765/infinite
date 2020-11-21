@@ -43,7 +43,7 @@ function CoDetailPage(props) {
     return (
         <div style={{ width: '70%', padding: '3rem 4rem' }}>
 
-            <div style={{ justifyContent: 'center' }}>
+            <div style={{ justifyContent: 'left' }}>
                 <h1>{Post.title}</h1>
             </div>
             <p>{Post.description}</p>

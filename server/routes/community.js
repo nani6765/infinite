@@ -8,17 +8,17 @@ const { Reply } = require('../models/Reply');
 //             community
 //=================================
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        //파일 저장 위치
-        cb(null, 'uploads/community/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    }
-  })
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         //파일 저장 위치
+//         cb(null, 'uploads/community/')
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, `${Date.now()}_${file.originalname}`)
+//     }
+//   })
    
-  var upload = multer({ storage: storage }).single("file")
+//   var upload = multer({ storage: storage }).single("file")
 
 router.post('/', (req, res) => {
     //db에 넣기

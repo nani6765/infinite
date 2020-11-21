@@ -10,7 +10,7 @@ function ProductInfo(props) {
         <div>
             <Descriptions title="장학정보">
                 <Descriptions.Item>
-                    <span style={{whiteSpace:'pre-line'}}>
+                    <span style={{whiteSpace:'pre-line', textAlign:'left'}}>
                         {detail}
                     </span>
                 </Descriptions.Item>

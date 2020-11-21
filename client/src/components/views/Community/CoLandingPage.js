@@ -27,7 +27,7 @@ function CoLandingPage() {
                     setPosts(response.data.postInfo.slice(0, 8));
                 }
                 setPostSize(response.data.postSize)
-                //console.log(Posts)
+                //console.log(post.writer.name)
             } else {
                alert("에러처리는 귀찮아.")
             }
@@ -62,20 +62,21 @@ function CoLandingPage() {
                     refreshFunction={UpdateSearchTerm}
                 />
             </div>
-            <div style={{ textAlign: 'left'}}>
-               
-                <List
+            <div>
+                <List 
+                    itemLayout="horizontal"
                     dataSource={Posts}
-                    renderItem={item => (
-                   <List.Item> 
-                       <List.Item.Meta
-                            title={<a href={`/community/${item._id}`}>{item.title}</a>}
-                            description={item.writer.email}
-                      />
+                    renderItem={post => (
+                   <List.Item>
+                       <div style={{ textAlign: 'left'}}>  
+                            <List.Item.Meta
+                                    title={<a href={`/community/${post._id}`}>{post.title}</a>}
+                                    description={post.writer.name}
+                            />
+                      </div>
                     </List.Item>
                      )}
                 />
-
                 <br/>
                 <Button href="/community/upload">글 작성하기</Button>
             </div>
