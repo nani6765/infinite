@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { default: ProductImage } = require('../../client/src/components/views/ProductDetail/Section/ProductImage');
 const { Product } = require('../models/Product');
+const { User } = require('../models/User');
 
 //=================================
 //             Product
@@ -116,56 +116,6 @@ router.post('/products', (req, res) => {
                 return res.status(200).send(product)
             })
         })
-
-    /*
-    router.get('/test', (req, res) =>{
-
-        let type = req.query.type
-        let productId = req.query.id
-
-        if (type === "array") {
-            let ids = req.query.id.split(',')
-            productId = ids.map(item => {
-                return item
-            })
-    
-        }
-    */
-        /*
-        Product.findOneAndUpdate(
-            { _id: { $in: productId } },
-            (err, product) => {
-                if (err) return res.json({ success: false, err })
-
-                const products = new products(transactionData)
-                product.save((err, doc) => {
-                    if (err) return res.json({ success: false, err })
-    
-                    async.eachSeries(product, (item, callback) => {
-    
-                        Product.update(
-                            { _id: item.id },
-                            {
-                                $inc: {
-                                    "view": 1
-                                }
-                            },
-                            { new: false },
-                            callback
-                        )
-                    }, (err) => {
-                        if (err) return res.status(400).json({ success: false, err })
-                        res.status(200).json({
-                            success: true,
-                        })
-                        }
-                    )
-                })
-                 
-            })
-           
-    })
-    */
 })
 
 module.exports = router;

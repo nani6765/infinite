@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { FaCode } from "react-icons/fa";
 import axios from 'axios';
 import {Button, Col, Card, Row, Carousel, Collapse} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
@@ -9,6 +8,7 @@ import AreaBox from './Section/AreaBox';
 import StateBox from './Section/StateBox';
 import SearchFeatures from './Section/SearchFeatures'
 import ChannelService from './Section/ChannelService'
+import RecoPage from './RecoPage'
 
 function LandingPage() {
     const [Products, setProducts] = useState([])
@@ -169,11 +169,16 @@ function LandingPage() {
                 />
             </div>
 
+            <p>맞춤추천</p>
+            <br/>
+            {/* RecoPage */}
+                <RecoPage/>
+ 
+            <p>전체목록</p>
+            <br/>
             {/* Card */}
             <Row gutter={16}>
-                
                     {renderCards}
-                
             </Row>
             
             {PostSize >= Limit &&

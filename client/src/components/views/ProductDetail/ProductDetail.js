@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 //import ProductImage from './Section/ProductImage';
+import ProductImage2 from './ProductImage2'
 import ProductInfo from './Section/ProductInfo';
 import { Row, Col } from 'antd';
 
@@ -30,6 +31,7 @@ function ProductDetail(props) {
                     {/* ProductImage
                     <ProductImage detail={Product} />
                     */}
+                    <ProductImage2 detail={Product}/>
                     
                 </Col>
                 <Col lg={12} sm={24}>

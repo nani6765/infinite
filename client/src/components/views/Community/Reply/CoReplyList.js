@@ -5,7 +5,7 @@ import { Comment } from 'antd';
 function CoReplyList(props) {
 
     const postId = props.postId
-    const [Replys, setReplys] = useState([])
+    const [Replys, setReplys] = useState([]) 
     const [ReplySize, setReplySize] = useState(0)
 
     const getreply = (body) => {
