@@ -2,10 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require('cors')
-
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
 const config = require("./config/key");
 
 // const mongoose = require("mongoose");
@@ -35,6 +33,9 @@ app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
+app.use('/api/community', require('./routes/community'));
+app.use('/api/reply', require('./routes/reply'));
+
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client

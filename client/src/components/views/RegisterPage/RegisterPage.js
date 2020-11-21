@@ -268,7 +268,6 @@ function RegisterPage(props) {
               value={values.info}
             />
             {errors.info && touched.info}
-
             
             <br/>
             <button type="submit" disabled={isSubmitting}>

@@ -20,6 +20,7 @@ function LandingPage() {
         stateCon: []
     })
     const [SearchTerm, setSearchTerm] = useState("")
+    const [View, setView] = useState()
 
     //초기에 최근 8개의 게시글만 보여줌. skip에 8 저장되어 있음
     useEffect(() => {
@@ -36,7 +37,7 @@ function LandingPage() {
         "pluginKey": "93635d68-761c-4d5a-8cde-d63b06cf017c" 
     });
     // 채널톡 닫음
-    ChannelService.shutdown();
+    //ChannelService.shutdown();
 
     // 프로덕트 정보 불러오기. slice(0, 8)은 당연히 skip이랑 연계되겠죠?
     const getProducts = (body) => {
@@ -87,9 +88,7 @@ function LandingPage() {
                         style={{marginBottom:'5px'}}
                 />
                 </Card>
-
-                
-                </div>
+            </div>
         </Col>
     })
 
@@ -140,7 +139,6 @@ function LandingPage() {
             filters: Filters,
             searchTerm: newSearchTerm
         }
-
         setSkip(0)
         setSearchTerm(newSearchTerm)
         getProducts(body)

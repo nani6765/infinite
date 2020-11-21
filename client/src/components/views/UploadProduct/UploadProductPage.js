@@ -62,7 +62,8 @@ function UploadProductPage(props) {
 
     const submitHandler = (event) => {
         //event.preventDefault();
-        if(!PostTitle || !Description || !AreaContinent || !StateContinent || !Images){
+        console.log("Hello", Images.length)
+        if(!PostTitle || !Description || !AreaContinent || !StateContinent || Images.length === 0){
             return alert("이거 다 경우의 수 처리하기 귀찮으니까 알아서 안 넣은 항목 찾아보셈")
         }
         else{

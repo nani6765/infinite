@@ -9,6 +9,9 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
 import ProductDetail from "./views/ProductDetail/ProductDetail"
 import UploadProductPage from './views/UploadProduct/UploadProductPage.js';
+import CoLandingPage from './views/Community/CoLandingPage.js'
+import UploadPost from './views/Community/UploadPost.js'
+import CoDetialPage from './views/Community/CoDetailPage.js'
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -21,6 +24,9 @@ function App() {
       <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
+          <Route exact path="/community" component={Auth(CoLandingPage, null)} />
+          <Route exact path="/community/upload" component={Auth(UploadPost, null)} />
+          <Route exact path="/community/:post_by_id" component={Auth(CoDetialPage, null)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />

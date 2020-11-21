@@ -1,0 +1,29 @@
+.Reply_div {
+    border-top: solid 1px #ababab;
+    margin-top: 40px;
+}
+
+.Reply_div h4 { margin-top: 50px; margin-left: 30px; }
+.Reply_div .Reply_write {
+    height: 150px;
+    border-bottom: solid 1px #ababab;
+}
+
+.Reply_div .Reply_write textarea {
+    width: 80%;
+    padding: 10px;
+    resize: none;
+    font-size: 15px;
+    line-height: 25px;
+    margin-left: 30px;
+}
+
+#reply_submit_button {
+    position: absolute;
+    width: 7%;
+    height: 12.3%;
+    margin-top: -0px;
+    background-color: white;
+    border: solid 1px #ababab;
+    cursor: pointer;
+}

@@ -21,19 +21,20 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "create-react-class": "^15.7.0",
-    "debug": "^4.1.1",
+    "debug": "^4.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.27",
+    "moment": "^2.29.1",
+    "mongoose": "^5.10.13",
     "multer": "^1.4.2",
     "react-image-gallery": "^1.0.8",
-    "react-redux": "^7.2.1",
+    "react-redux": "^7.2.2",
+    "react-swipeable": "^6.0.0",
     "saslprep": "^1.0.3",
-    "supports-color": "^7.1.0"
+    "supports-color": "^7.2.0"
   },
   "devDependencies": {
-    "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4"
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
   }
 }
