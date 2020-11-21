@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
-import {Button, Col, Card, Row, Carousel, Collapse} from 'antd';
+import {Button, Col, Card, Row, Typography } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import ImageSlider from '../../Utils/ImageSlider';
 import { areaCont, stateCont } from './Section/Datas';
@@ -10,9 +10,11 @@ import SearchFeatures from './Section/SearchFeatures'
 import ChannelService from './Section/ChannelService'
 import RecoPage from './RecoPage'
 
+const { Title } = Typography;
+
 function LandingPage() {
     const [Products, setProducts] = useState([])
-    const [Skip, setSkip] = useState(0)
+    const [Skip, setSkip] = useState(4)
     const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
     const [Filters, setFilters] = useState({
@@ -20,7 +22,6 @@ function LandingPage() {
         stateCon: []
     })
     const [SearchTerm, setSearchTerm] = useState("")
-    const [View, setView] = useState()
 
     //초기에 최근 8개의 게시글만 보여줌. skip에 8 저장되어 있음
     useEffect(() => {
@@ -147,7 +148,7 @@ function LandingPage() {
     return (
         <div style={{width:'75%', margin: '3rem auto'}}>
             <div style={{ textAlign: 'center'}}>
-                <h2>Infinite <SmileOutlined /></h2>
+                <Title level={4}>스콜라이프</Title>
             </div>
 
             {/* Filter */}
@@ -161,20 +162,21 @@ function LandingPage() {
                     <StateBox list={stateCont} handleFilters={filters => handleFilters(filters, "stateCon")}/>
                 </Col>
             </Row>
-            
+
+            {/* RecoPage */}
+            <RecoPage/>
+
             {/* Serach */}
             <div style={{display:'flex', justifyContent:'flex-end', margin: '1rem auto'}}>
                 <SearchFeatures
                     refreshFunction={UpdateSearchTerm}
                 />
             </div>
+                <br/>
+                <hr/>
+                <br/>
 
-            <p>맞춤추천</p>
-            <br/>
-            {/* RecoPage */}
-                <RecoPage/>
- 
-            <p>전체목록</p>
+            <Title level={4} style={{textAlign:'left'}}>전체목록</Title>
             <br/>
             {/* Card */}
             <Row gutter={16}>

@@ -69,8 +69,7 @@ const userSchema = mongoose.Schema({
 
     //특수정보
     info: {
-        type:String,
-        minglength: 1
+        type:Array,
     },
 
     token : {

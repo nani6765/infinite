@@ -23,7 +23,7 @@ function StateBox(props) {
     return (
         <div>
             <Collapse defaultActiveKey={['0']}>
-                <Panel header="상태(?)" key="1">
+                <Panel header="학력" key="1">
                     <Radio.Group onChange={handleChange} value={Value}>
                         {renderRadioBox()}
                     </Radio.Group>

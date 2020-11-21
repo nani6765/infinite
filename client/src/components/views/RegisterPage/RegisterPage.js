@@ -4,13 +4,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import * as Yup from 'yup';
 import { registerUser } from "../../../_actions/user_actions";
-
-//antd 안씁니다~~ 
-import {
-  Input,
-  Button,
-  Select,
-} from 'antd';
+import styles from "./RegisterPage.css";
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
@@ -29,7 +23,7 @@ function RegisterPage(props) {
         academic: '',
         achievement: '',
         income: '',
-        info: '',
+        info: []
       }}
 
       validationSchema={Yup.object().shape({
@@ -67,7 +61,7 @@ function RegisterPage(props) {
             if (response.payload.success) {
               props.history.push("/login");
             } else {
-              alert(response.payload.err.errmsg)
+              alert("여기가 문제임?")
             }
           })
 
@@ -86,14 +80,16 @@ function RegisterPage(props) {
         handleSubmit,
         isSubmitting,
         /* and other goodies */
-      } = props;
+      } = props; 
 
       return(
         <div className="app">
-          <h2>Sign up</h2>
+          <h1>Sign up</h1>
+          <br/>
           <Form style={{ minWidth: '375px' }} onSubmit={handleSubmit} >
-            <p>name</p>
-            <Field
+            <span className="right">Name:&nbsp;</span>
+            <Field 
+              className="field"
               name="name"
               type="text"
               onChange={handleChange}
@@ -101,10 +97,12 @@ function RegisterPage(props) {
               value={values.name}
             />
             {errors.name && touched.name}
+            
 
-            <br/>
-            <p>lastname</p>
-            <Field
+            <br/><br/>
+            <span className="right">Last Name: &nbsp;</span>
+            <Field 
+              className="field"
               name="lastname"
               type="text"
               onChange={handleChange}
@@ -112,10 +110,12 @@ function RegisterPage(props) {
               value={values.lastname}
             />
             {errors.lastname && touched.lastname}
+            
 
-            <br/>
-            <p>email</p>
-            <Field
+            <br/><br/>
+            <span className="right">Email: &nbsp;</span>
+            <Field 
+              className="field"
               name="email"
               type="email"
               onChange={handleChange}
@@ -123,10 +123,12 @@ function RegisterPage(props) {
               value={values.email}
             />
             {errors.email && touched.email}
-            <br/>
+            
+            <br/><br/>
 
-            <p>패스워드</p>
+            <span className="right">Password: &nbsp;</span>
             <Field
+              className="field"
               name="password"
               type="password"
               onChange={handleChange}
@@ -134,10 +136,12 @@ function RegisterPage(props) {
               value={values.password}
             />
             {errors.password && touched.password}
-            <br/>
+          
+            <br/><br/>
 
-            <p>패스워드 확인</p>
+            <span className="right">Confirm: &nbsp;</span>
             <Field
+              className="field"
               name="confirmPassword"
               type="password"
               onChange={handleChange}
@@ -145,9 +149,11 @@ function RegisterPage(props) {
               value={values.confirmPassword}
             />
             {errors.confirmPassword && touched.confirmPassword}
-            <br/>
+            
+            <br/><br/>
 
-            <p>관심분야</p>
+            <span className="right">Interested: &nbsp;</span>
+            <br/>
             <label>
              <input
                type="checkbox"
@@ -157,7 +163,7 @@ function RegisterPage(props) {
                onChange={handleChange}
                onBlur={handleBlur}
              />
-             장학금
+              &nbsp;장학금&nbsp;&nbsp;
            </label>
            <label>
              <input
@@ -168,7 +174,7 @@ function RegisterPage(props) {
                onChange={handleChange}
                onBlur={handleBlur}
              />
-            학자금
+             &nbsp;학자금&nbsp;&nbsp;
            </label>
            <label>
              <input
@@ -179,7 +185,7 @@ function RegisterPage(props) {
                onChange={handleChange}
                onBlur={handleBlur}
              />
-             기숙사/학사
+              &nbsp;기숙사/학사&nbsp;&nbsp;
            </label>
            <label>
              <input
@@ -190,13 +196,15 @@ function RegisterPage(props) {
                onChange={handleChange}
                onBlur={handleBlur}
              />
-             기타
+              &nbsp;기타&nbsp;
            </label>
             {errors.interested && touched.interested}
+            
 
-            <br/>
-            <p>지원계열</p>
+            <br/><br/>
+            <span className="right">지원계열: &nbsp;</span>
             <Field
+              className="field"
               as="select"
               name="line"
               onChange={handleChange}
@@ -208,10 +216,12 @@ function RegisterPage(props) {
               <option value="예체능">예체능</option>
             </Field>
             {errors.line && touched.line}
+            
 
-            <br/>
-            <p>학교</p>
+            <br/><br/>
+            <span className="right">학교: &nbsp;</span>
             <Field
+              className="field"
               name="school"
               type="text"
               onChange={handleChange}
@@ -219,58 +229,185 @@ function RegisterPage(props) {
               value={values.school}
             />
             {errors.school && touched.school}
+            
 
-            <br/>
+            <br/><br/>
 
-            <p>학적</p>
+            <span className="right">학적: &nbsp;</span>
             <Field
+              className="field"
               as="select"
               id="academic"
               name="academic"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.academic}
+              default=""
             >
               <option value="재학">재학</option>
               <option value="휴학">휴학</option>
+              <option value="수료">수료</option>
               <option value="졸업">졸업</option>
             </Field>
             {errors.academic && touched.academic}
+            
 
-            <br/>
-            <p>학점</p>
+            <br/><br/>
+            <span className="right">학점: &nbsp;</span>
             <Field
+              className="field"
               name="achievement"
-              type="number"
-              step="0.01"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.achievement}
-            />
-            {errors.achievement && touched.achievement}
-
-            <p>소득분위</p>
-            <Field
-              name="income"
-              type="number"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.income}
-            />만원
-            {errors.income && touched.income}
-
-            <p>특수정보</p>
-            <Field
-              name="info"
               type="text"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.info}
+              placeholder="4.5 만점 기준"
+              value={values.achievement}
             />
-            {errors.info && touched.info}
+            {errors.achievement && touched.achievement}
             
+            <br/><br/>
+            <span className="right">소득분위: &nbsp;</span>
+            <Field
+              className="field"
+              name="income"
+              as = "select"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.income}> 
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              &nbsp;분위
+            </Field>
+            {errors.income && touched.income}
+            
+            <br/><br/>
+            <span className="right">특수정보: &nbsp;</span>
             <br/>
-            <button type="submit" disabled={isSubmitting}>
+            <span className="check">
+            <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="다문화가정"
+               checked={values.info.includes('다문화가정')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;다문화가정&nbsp;&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="기초생활수급자"
+               checked={values.info.includes('기초생활수급자')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+             &nbsp;기초생활수급자&nbsp;&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="차상위계층"
+               checked={values.info.includes('차상위계층')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;차상위계층&nbsp;&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="장애인"
+               checked={values.info.includes('장애인')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;장애인&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="새터민"
+               checked={values.info.includes('새터민')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;새터민&nbsp;
+           </label>
+           <br/>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="농어촌자녀"
+               checked={values.info.includes('농어촌자녀')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;농어촌자녀&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="보훈대상자"
+               checked={values.info.includes('보훈대상자')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;보훈대상자&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="조부모가정"
+               checked={values.info.includes('조부모가정')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;조부모가정&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="한부모"
+               checked={values.info.includes('한부모')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;한부모&nbsp;
+           </label>
+           <label>
+             <input
+               type="checkbox"
+               name="info"
+               value="학생가장"
+               checked={values.info.includes('학생가장')}
+               onChange={handleChange}
+               onBlur={handleBlur}
+             />
+              &nbsp;학생가장&nbsp;
+           </label>
+           </span>
+            {errors.info && touched.info}
+          
+            <br/>
+            <button className="button" type="submit" disabled={isSubmitting}>
               Submit
             </button>
           </Form>

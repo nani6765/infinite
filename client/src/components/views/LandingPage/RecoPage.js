@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
-import {Button, Col, Card, Row} from 'antd';
+import {Collapse, Col, Card, Row} from 'antd';
 import ImageSlider from '../../Utils/ImageSlider';
 import { areaCont, stateCont } from './Section/Datas';
+
+const { Panel } = Collapse;
 
 function RecoPage() {
     const [Products, setProducts] = useState([])
@@ -63,9 +65,13 @@ function RecoPage() {
     })
 
     return (<div>
-                <Row gutter={16}>
-                    {renderCards}
-                </Row>
+            <Collapse defaultActiveKey={['1']}>
+                <Panel header="맞춤 추천" key="0">
+                    <Row gutter={16}>
+                         {renderCards}
+                    </Row>
+                </Panel>
+            </Collapse>
             </div>
     )                
 }

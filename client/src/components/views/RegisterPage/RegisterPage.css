@@ -1,0 +1,51 @@
+div 
+{
+    text-align: center;
+}
+
+
+.right {
+    position: absolute;
+    left: 43%;
+    transform:translateX(-43%);
+}
+
+
+.field {
+    position: absolute;
+    width: 150px;
+    margin: 0 auto;
+    left: 55%;
+    transform:translateX(-55%);
+    text-align: center;
+    border-color: #D8D8D8;
+    border-width: thin;
+    border-radius: 5%;
+    border-style: solid;
+}
+
+.check{
+    position: absolute;
+    width: 500px;
+    margin: 0 auto;
+    left: 50%;
+    transform:translateX(-50%);
+    text-align: center;
+    border-color: #D8D8D8;
+    border-width: thin;
+    border-radius: 5%;
+}
+
+.button{
+    position: relative;
+    bottom: -10%;
+    background-color: #489CFF;
+    color: white;
+    border-radius: 5%;
+    border: none;
+    padding: 7px 30px;
+}
+
+::placeholder{
+    color: #D8D8D8;
+}
