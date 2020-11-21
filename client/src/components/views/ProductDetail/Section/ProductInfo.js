@@ -4,11 +4,16 @@ import { Descriptions } from 'antd';
 
 function ProductInfo(props) {
 
+    let detail = props.detail.description
+
     return (
         <div>
-            <Descriptions title="Product Info">
-                <Descriptions.Item label="View">{props.detail.views}</Descriptions.Item>
-                <Descriptions.Item label="Description">{props.detail.description}</Descriptions.Item>
+            <Descriptions title="장학정보">
+                <Descriptions.Item>
+                    <span style={{whiteSpace:'pre-line'}}>
+                        {detail}
+                    </span>
+                </Descriptions.Item>
             </Descriptions>
         </div>
     )

@@ -3,6 +3,8 @@ import axios from 'axios';
 import {Collapse, Col, Card, Row} from 'antd';
 import ImageSlider from '../../Utils/ImageSlider';
 import { areaCont, stateCont } from './Section/Datas';
+import { USER_SERVER } from '../../Config'
+import { useSelector } from "react-redux";
 
 const { Panel } = Collapse;
 
@@ -11,12 +13,7 @@ function RecoPage() {
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(4)
     const [PostSize, setPostSize] = useState(0)
-    // const [Filters, setFilters] = useState({
-    //     areaCon: [], 
-    //     stateCon: []
-    // })
-    // const [SearchTerm, setSearchTerm] = useState("")
-    // const [View, setView] = useState()
+    const user = useSelector(state => state.user)
 
     useEffect(() => {
 
@@ -64,16 +61,29 @@ function RecoPage() {
         </Col>
     })
 
-    return (<div>
+    if (user.userData && !user.userData.isAuth){
+        return (
+            <div>
+               <Collapse defaultActiveKey={['0']}>
+                    <Panel header="맞춤 추천" key="0">
+                        <p>로그인 해주세요 :)</p>                        
+                    </Panel>
+                </Collapse>
+            </div>
+        )
+    } else {
+        return (
+        <div>
             <Collapse defaultActiveKey={['1']}>
                 <Panel header="맞춤 추천" key="0">
                     <Row gutter={16}>
-                         {renderCards}
+                        {renderCards}
                     </Row>
                 </Panel>
             </Collapse>
-            </div>
-    )                
+        </div>
+        )
+    }                
 }
 
 export default RecoPage

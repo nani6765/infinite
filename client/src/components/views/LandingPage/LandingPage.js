@@ -164,7 +164,7 @@ function LandingPage() {
             </Row>
 
             {/* RecoPage */}
-            <RecoPage/>
+            <RecoPage mode="inline"/>
 
             {/* Serach */}
             <div style={{display:'flex', justifyContent:'flex-end', margin: '1rem auto'}}>

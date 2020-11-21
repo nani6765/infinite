@@ -26,6 +26,9 @@ function ProductDetail(props) {
                 <h1>{Product.title}</h1>
             </div>
 
+            <br/>
+            <br/>
+            
             <Row gutter={[16, 16]} >
                 <Col lg={12} sm={24}>
                     {/* ProductImage
