@@ -12,6 +12,8 @@ import UploadProductPage from './views/UploadProduct/UploadProductPage.js';
 import CoLandingPage from './views/Community/CoLandingPage.js'
 import UploadPost from './views/Community/UploadPost.js'
 import CoDetialPage from './views/Community/CoDetailPage.js'
+import Mypage from './views/Mypage.js'
+import OurStory from './views/OurStory.js'
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -30,7 +32,9 @@ function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
-          <Route exact path="/product/:products_by_id" component={Auth(ProductDetail, null)} />
+          <Route exact path="/product/:products_by_id" component={Auth(ProductDetail, true)} />
+          <Route exact path="/mypage" component={Auth(Mypage, true)} />
+          <Route exact path="/ourstory" component={Auth(OurStory, null)} />
         </Switch>
       </div>
       <Footer />

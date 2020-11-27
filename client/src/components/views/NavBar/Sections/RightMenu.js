@@ -35,6 +35,9 @@ function RightMenu(props) {
     //login
     return (
       <Menu mode={props.mode}>
+        <Menu.Item key="mypage">
+        <a href={`/mypage/`}>Mypage</a>
+        </Menu.Item>
         <Menu.Item key="upload">
           <a href='/product/upload'>Upload</a>
         </Menu.Item>

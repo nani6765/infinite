@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import CoReply from './Reply/CoReply'
 import CoReplyList from './Reply/CoReplyList'
+import { Divider } from 'antd';
 
 function CoDetailPage(props) {
 
@@ -42,13 +43,18 @@ function CoDetailPage(props) {
 
     return (
         <div style={{ width: '70%', padding: '3rem 4rem' }}>
-
             <div style={{ justifyContent: 'left' }}>
                 <h1>{Post.title}</h1>
             </div>
+            
             <p>{Post.description}</p>
-            <CoReplyList postId={postId} />
-            <CoReply data={data} postId={postId}/>
+            
+            <Divider orientation="left">댓글</Divider>
+            
+            <div style={{textAlign:"left"}}>
+                <CoReplyList postId={postId} />
+                <CoReply data={data} postId={postId}/>
+            </div>
         </div>
     )
     

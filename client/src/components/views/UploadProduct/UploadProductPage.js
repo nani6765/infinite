@@ -122,7 +122,7 @@ function UploadProductPage(props) {
                 </select>
                 <br />
                 <br />
-                <lavel> 상태(?) </lavel>
+                <lavel> 학력 </lavel>
                 <br />
                 <select onChange={stateContinentChangeHandler} value={StateContinent}>
                     {stateContinents.map(item => (

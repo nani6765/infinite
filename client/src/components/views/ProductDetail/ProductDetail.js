@@ -3,6 +3,7 @@ import axios from 'axios';
 //import ProductImage from './Section/ProductImage';
 import ProductImage2 from './ProductImage2'
 import ProductInfo from './Section/ProductInfo';
+import ProductButton from './Section/ProductButton'
 import { Row, Col } from 'antd';
 
 function ProductDetail(props) {
@@ -28,20 +29,19 @@ function ProductDetail(props) {
 
             <br/>
             <br/>
-            
             <Row gutter={[16, 16]} >
                 <Col lg={12} sm={24}>
                     {/* ProductImage
                     <ProductImage detail={Product} />
                     */}
                     <ProductImage2 detail={Product}/>
-                    
                 </Col>
                 <Col lg={12} sm={24}>
                     {/* ProductInfo */}
                     <ProductInfo detail={Product} />
                 </Col>
             </Row>
+            <ProductButton detail={Product}/>
         </div>
     )
     

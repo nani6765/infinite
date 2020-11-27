@@ -72,6 +72,11 @@ const userSchema = mongoose.Schema({
         type:Array,
     },
 
+    //담은 상품
+    products: {
+        type:Array,
+    },
+
     token : {
         type: String,
     },

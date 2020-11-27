@@ -63,12 +63,12 @@ function CoLandingPage() {
                 />
             </div>
             <div>
-                <List 
-                    itemLayout="horizontal"
+                <List
+                    //itemLayout="horizontal"
                     dataSource={Posts}
                     renderItem={post => (
                    <List.Item>
-                       <div style={{ textAlign: 'left'}}>  
+                       <div style={{width:"1080px", justifyContent: "left", textAlign:"left"}}>  
                             <List.Item.Meta
                                     title={<a href={`/community/${post._id}`}>{post.title}</a>}
                                     description={post.writer.name}
